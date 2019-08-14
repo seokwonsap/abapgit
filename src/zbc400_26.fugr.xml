@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>서건짱의 FG</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZBC400_26TOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZBC400_26</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>Z_BC400_26_CONNECTION_GET</FUNCNAME>
+     <SHORT_TEXT>연결 가져오기</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IV_CARRID</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>S_CARR_ID</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_CONNID</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>S_CONN_ID</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_CONNECTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BC400_S_CONNECTION</TYP>
+      </RSEXP>
+     </EXPORT>
+     <EXCEPTION>
+      <RSEXC>
+       <EXCEPTION>NO_DATA</EXCEPTION>
+      </RSEXC>
+     </EXCEPTION>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IV_CARRID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Airline Code</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_CONNID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Flight Connection Number</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_CONNECTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Flight Connection</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>NO_DATA</PARAMETER>
+       <KIND>X</KIND>
+       <STEXT>데이터가 없떠여</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>Z_BC400_26_FLIGHTLIST_GET</FUNCNAME>
+     <SHORT_TEXT>Z_BC400_26_FLIGHTLIST_GET</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IV_CARRID</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>S_CARR_ID</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_CONNID</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>S_CONN_ID</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_FLIGHTS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BC400_T_FLIGHTS</TYP>
+      </RSEXP>
+     </EXPORT>
+     <EXCEPTION>
+      <RSEXC>
+       <EXCEPTION>NO_DATA</EXCEPTION>
+      </RSEXC>
+     </EXCEPTION>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IV_CARRID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Airline Code</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_CONNID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Flight Connection Number</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_FLIGHTS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Flight times</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>NO_DATA</PARAMETER>
+       <KIND>X</KIND>
+       <STEXT>데이터가 없떠욧</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>Z_BC400_26_FLIGHTLIST_GET_OPT</FUNCNAME>
+     <SHORT_TEXT>Z_BC400_26_FLIGHTLIST_GET</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IV_CARRID</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>S_CARR_ID</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_CONNID</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>S_CONN_ID</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_FLIGHTS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>BC400_T_FLIGHTS</TYP>
+      </RSEXP>
+     </EXPORT>
+     <EXCEPTION>
+      <RSEXC>
+       <EXCEPTION>NO_DATA</EXCEPTION>
+      </RSEXC>
+     </EXCEPTION>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IV_CARRID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Airline Code</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_CONNID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Flight Connection Number</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_FLIGHTS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Flight times</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>NO_DATA</PARAMETER>
+       <KIND>X</KIND>
+       <STEXT>데이터가 없떠욧</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

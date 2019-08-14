@@ -1,0 +1,35 @@
+*&---------------------------------------------------------------------*
+*& Report ZCALLING_PRG_26
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZCALLING_PRG_26.
+
+DATA: GT_BDCDATA TYPE TABLE OF BDCDATA,
+      GS_BDCDATA LIKE LINE OF GT_BDCDATA.
+
+
+
+
+
+GS_BDCDATA-PROGRAM = 'SAPBC402_PGCD_CREATE_CUSTOMER'.
+GS_BDCDATA-DYNPRO ='0100'.
+GS_BDCDATA-DYNBEGIN = 'X'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR : GS_BDCDATA.
+
+GS_BDCDATA-FNAM = 'SCUSTOM-NAME'.
+GS_BDCDATA-FVAL = '석짱'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+CLEAR : GS_BDCDATA.
+
+GS_BDCDATA-FNAM = 'SCUSTOM-CITY'.
+GS_BDCDATA-FVAL = '서울'.
+APPEND GS_BDCDATA TO GT_BDCDATA.
+
+
+CALL TRANSACTION 'BC402_CALD_CRE_CUST'
+  USING GT_BDCDATA
+  MODE 'A'.
