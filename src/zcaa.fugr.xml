@@ -1,0 +1,1401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>TEAM-A Funtion Group</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZCAATOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZCAA</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZCA_BILLINGDOC_CREATE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Create Billing Document (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_DELIVERY</PARAMETER>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>POSNR</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_BILLDOC</PARAMETER>
+       <TYP>VBELN</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_MSG</PARAMETER>
+       <TYP>STRING</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_BILLING</PARAMETER>
+       <DBSTRUCT>BAPIVBRK</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_LIKP</PARAMETER>
+       <DBSTRUCT>LIKP</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_SUCCESS</PARAMETER>
+       <DBSTRUCT>BAPIVBRKSUCCESS</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ERROR</PARAMETER>
+       <DBSTRUCT>BAPIVBRKERRORS</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET1</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_DELIVERY</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Item number of the SD document</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_BILLDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_MSG</PARAMETER>
+       <KIND>P</KIND>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_BILLING</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communication Fields for Billing Header Fields</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_LIKP</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>SD Document: Delivery Header Data</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_SUCCESS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Information for Successfully Processing Billing Doc. Items</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ERROR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Information on Incorrect Processing of Preceding Items</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Return Parameter</STEXT>
+       <INDEX> 010</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_BILLINGDOC_GETLIST</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Get List Billing Documents (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_SDDOC</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DLDOC</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BLDOC</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>POSNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_COMPANY</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_SALESORG</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VKORG</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_PAYER</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KUNRG</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_SOLDTO</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KUNAG</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_MATERIAL</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>MATNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_OALLSTATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>GBSTK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_INVCSTATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>RELIK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DOCDATE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZCA_DOCDATE_WA</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_BILLINGDOC</PARAMETER>
+       <TYP>ZCA_BILLINGDOC_TT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_DOCDATE</PARAMETER>
+       <TYP>ZCA_DOCDATE_TT</TYP>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_SDDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DLDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BLDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Item number of the SD document</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_COMPANY</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Company Code</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_SALESORG</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales Organization</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_PAYER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Payer</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_SOLDTO</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sold-to party</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_MATERIAL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Material Number</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_OALLSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Overall Processing Status of Document</STEXT>
+       <INDEX> 010</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_INVCSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Invoice list status of billing document</STEXT>
+       <INDEX> 011</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DOCDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales Order Created Date Structure (TEAM-A)</STEXT>
+       <INDEX> 012</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_BILLINGDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Table Type for Billing Documents (TEAM-A)</STEXT>
+       <INDEX> 013</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_DOCDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Table Type for Range Document Date (TEAM-A)</STEXT>
+       <INDEX> 014</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_BUPACREDIT_CHANGE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Change BP Credit Limit (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_PARTNER</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_CREDITSEGMENT</PARAMETER>
+       <TYP>UKM_CREDIT_SGMNT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_PARTNER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_CREDITSEGMENT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Credit Segment</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_CREDITMASS_CHANGE</FUNCNAME>
+     <SHORT_TEXT>Credit data mass update &amp; create</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+     </IMPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_CREDITSHOW_GETLIST</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Get List Credit &amp; Exposure about Customer (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_CTLAREA</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KKBER</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_COMP_VALUE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>NETWR_AK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_STATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>CHAR1</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_CREDITSHOW</PARAMETER>
+       <TYP>ZCA_CREDITSHOW_TT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_CTLAREA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Credit control area</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_COMP_VALUE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Net Value of the Sales Order in Document Currency</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_STATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Single-Character Flag</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_CREDITSHOW</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Table Type Credit Management (TEAM-A)</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_MATNRSTOCK_GETLIST</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Get List Material Stock (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_MATERIAL</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>MATNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_PLANT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>WERKS_D</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_STORELOC</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>LGORT_D</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_ALLSTOCK</PARAMETER>
+       <TYP>ZCA_COMMITSTCK_TT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_MATERIAL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Material Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_PLANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Plant Table for National (Centrally Agreed) Contracts</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_STORELOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Material Master View on Storage Location and Batch Selection</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_ALLSTOCK</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Committed Stock Table Type (TEAM-A)</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_OUTBOUNDRY_CHANGE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Outbound Delivery Change (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>POSNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_PICKING</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KOSTK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_POSTGOOD</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>WBSTK</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Item number of the SD document</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_PICKING</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Single-Character Flag</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_POSTGOOD</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Single-Character Flag</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Return Parameter</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_OUTBOUNDRY_CREATE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Create Outbound Delivery (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_SALESDOC</PARAMETER>
+       <TYP>RFBEL_VL</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>POSNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_SHIPPOINT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BAPIDLVCREATEHEADER-SHIP_POINT</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DUEDATE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BAPIDLVCREATEHEADER-DUE_DATE</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_DELIVERY</PARAMETER>
+       <TYP>BAPISHPDELIVNUMB-DELIV_NUMB</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_SALES_ORDER_ITEMS</PARAMETER>
+       <DBSTRUCT>BAPIDLVREFTOSALESORDER</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_SALESDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reference document</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Item number of the SD document</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_SHIPPOINT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Shipping Point/Receiving Point</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DUEDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Delivery Creation Date</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_DELIVERY</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Delivery</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_SALES_ORDER_ITEMS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Delivery Item with Reference to a Sales Order</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Return Parameter</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_OUTBOUNDRY_GETLIST</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Get List Outbound Delivery (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_SDDOC</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DOCDATE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZCA_DOCDATE_WA</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>POSNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_MATNR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>MATNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BILLSTATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FKSTK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_OALLSTATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>GBSTK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_PICKSTATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KOSTK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_GOODSTATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>WBSTK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_OALLBLOCK</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>SPSTG</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BILLBLCOK</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FAKSK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DELVBLOCK</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>LIFSK</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_OD_LIST</PARAMETER>
+       <TYP>ZCA_OUTBOUNDRY_TT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_DOCDATE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZCA_DOCDATE_TT</TYP>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_SDDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DOCDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales Order Created Date Structure</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Item number of the SD document</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_MATNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Material Number</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BILLSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Billing status</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_OALLSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Overall Processing Status of Document</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_PICKSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Overall Picking / Putaway Status</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_GOODSTATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Overall Goods Movement Status</STEXT>
+       <INDEX> 010</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_OALLBLOCK</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Overall Blocked Status</STEXT>
+       <INDEX> 011</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BILLBLCOK</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Billing Block in SD Document</STEXT>
+       <INDEX> 012</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DELVBLOCK</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Delivery Block (Document Header)</STEXT>
+       <INDEX> 013</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_OD_LIST</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Table Type Outbound Delivery (TEAM-A)</STEXT>
+       <INDEX> 014</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_DOCDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>TEST</STEXT>
+       <INDEX> 015</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_POSTINCOME_CREATE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Post Customer Invoice (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_COMPANY</PARAMETER>
+       <TYP>BUKRS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_BILLDOC</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BELNR_D</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_AMOUNT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BAPIDOCCUR</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_OBJ_TYPE</PARAMETER>
+       <TYP>BAPIACHE09-OBJ_TYPE</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_OBJ_KEY</PARAMETER>
+       <TYP>BAPIACHE09-OBJ_KEY</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_OBJ_SYS</PARAMETER>
+       <TYP>BAPIACHE09-OBJ_SYS</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_ACCOUNTGL</PARAMETER>
+       <DBSTRUCT>BAPIACGL09</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ACCOUNTRECEIVABLE</PARAMETER>
+       <DBSTRUCT>BAPIACAR09</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_CURRENCYAMOUNT</PARAMETER>
+       <DBSTRUCT>BAPIACCR09</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_COMPANY</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Company Code</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_BILLDOC</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reference Document Number</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_AMOUNT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Amount in Document Currency</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_OBJ_TYPE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reference procedure</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_OBJ_KEY</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Object key</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_OBJ_SYS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Logical system of source document</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ACCOUNTGL</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>G/L account item</STEXT>
+       <INDEX> 010</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ACCOUNTRECEIVABLE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Item</STEXT>
+       <INDEX> 011</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_CURRENCYAMOUNT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Currency Items</STEXT>
+       <INDEX> 012</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Return Parameter</STEXT>
+       <INDEX> 013</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_SALESORDER_CHANGE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Change Sales Order (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <TYP>VBELN_VA</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DLVBLK</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>LIFSK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_REJECT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ABGRU</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ORDER_HEADER_IN</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BAPISDH1</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ORDER_HEADER_INX</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>BAPISDH1X</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IT_ORDERITEMS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZCA_IN_SALESORDER_TT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_ITEMS_IN</PARAMETER>
+       <DBSTRUCT>BAPISDITM</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_SCHEDULES_IN</PARAMETER>
+       <DBSTRUCT>BAPISCHDL</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_ITEMS_INX</PARAMETER>
+       <DBSTRUCT>BAPISDITMX</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_SCHEDULES_INX</PARAMETER>
+       <DBSTRUCT>BAPISCHDLX</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DLVBLK</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Not More Closely Defined Area, Possibly Used for Patchlevels</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_REJECT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reason for rejection of quotations and sales orders</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ORDER_HEADER_IN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communication Fields: SD Order Header</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ORDER_HEADER_INX</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Checkbox List: SD Order Header</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IT_ORDERITEMS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Table Type for ZCA_IN_SALESORDER_WA</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Return Parameter</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_ITEMS_IN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communication Fields: Sales and Distribution Document Item</STEXT>
+       <INDEX> 010</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_SCHEDULES_IN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communication Fields for Maintaining SD Doc. Schedule Lines</STEXT>
+       <INDEX> 011</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_ITEMS_INX</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communication Fields: Sales and Distribution Document Item</STEXT>
+       <INDEX> 012</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_SCHEDULES_INX</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Checkbox List for Maintaining Sales Document Schedule Line</STEXT>
+       <INDEX> 013</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_SALESORDER_CREATE</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Create Sales Order (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_REQDAT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>EDATU_VBAK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IT_ORDERITEMS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZCA_IN_SALESORDER_TT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <TYP>BAPI_MSG</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>E_VBELN</PARAMETER>
+       <TYP>VBELN</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <DBSTRUCT>BAPIRET2</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_ITEMS_IN</PARAMETER>
+       <DBSTRUCT>BAPISDITM</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_PARTNERS</PARAMETER>
+       <DBSTRUCT>BAPIPARNR</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_SCHEDULES_IN</PARAMETER>
+       <DBSTRUCT>BAPISCHDL</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+      <RSTBL>
+       <PARAMETER>T_ORDER_KEYS</PARAMETER>
+       <DBSTRUCT>BAPISDKEY</DBSTRUCT>
+       <OPTIONAL>X</OPTIONAL>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_REQDAT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Requested Delivery Date</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IT_ORDERITEMS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Table Type for ZCA_IN_SALESORDER_WA</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_MESSAGE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_ERROR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Message Text</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>E_VBELN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales Document</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_RETURN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Return Parameter</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_ITEMS_IN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communication Fields: Sales and Distribution Document Item</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_PARTNERS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communications Fields: SD Document Partner: WWW</STEXT>
+       <INDEX> 010</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_SCHEDULES_IN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Communication Fields for Maintaining SD Doc. Schedule Lines</STEXT>
+       <INDEX> 011</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_ORDER_KEYS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Output Table of Reference Keys</STEXT>
+       <INDEX> 012</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZCA_SALESORDER_GETLIST</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Get List Sales Order (TEAM-A)</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>KUNNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>VBELN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DLVBLK</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>LIFSK</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_STATUS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>UVALL</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_DOCDATE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZCA_DOCDATE_WA</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>POSNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_MATNR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>MATNR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>I_REJECT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ABGRU</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_SO_LIST</PARAMETER>
+       <TYP>ZCA_SALESORDER_TT</TYP>
+      </RSEXP>
+     </EXPORT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>T_DOCDATE</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>ZCA_DOCDATE_TT</TYP>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_CUSTOMER</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Customer Number</STEXT>
+       <INDEX> 001</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_VBELN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales and Distribution Document Number</STEXT>
+       <INDEX> 002</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DLVBLK</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Delivery Block (Document Header)</STEXT>
+       <INDEX> 003</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_STATUS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Generally incomplete</STEXT>
+       <INDEX> 004</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_DOCDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Sales Order Created Date Structure</STEXT>
+       <INDEX> 005</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_ITMNUM</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Item number of the SD document</STEXT>
+       <INDEX> 006</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_MATNR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Material Number</STEXT>
+       <INDEX> 007</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>I_REJECT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Reason for rejection of quotations and sales orders</STEXT>
+       <INDEX> 008</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_SO_LIST</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Generated Table for View</STEXT>
+       <INDEX> 009</INDEX>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>T_DOCDATE</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>TEST</STEXT>
+       <INDEX> 010</INDEX>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

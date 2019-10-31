@@ -1,0 +1,80 @@
+FUNCTION ZCA_BILLINGDOC_CREATE.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(I_DELIVERY) TYPE  VBELN
+*"     VALUE(I_ITMNUM) TYPE  POSNR OPTIONAL
+*"  EXPORTING
+*"     VALUE(E_BILLDOC) TYPE  VBELN
+*"     VALUE(E_MSG) TYPE  STRING
+*"     VALUE(E_ERROR) TYPE  BAPI_MSG
+*"  TABLES
+*"      T_BILLING STRUCTURE  BAPIVBRK OPTIONAL
+*"      T_LIKP STRUCTURE  LIKP OPTIONAL
+*"      T_SUCCESS STRUCTURE  BAPIVBRKSUCCESS OPTIONAL
+*"      T_ERROR STRUCTURE  BAPIVBRKERRORS OPTIONAL
+*"      T_RETURN STRUCTURE  BAPIRET1 OPTIONAL
+*"----------------------------------------------------------------------
+
+  DATA: W_RETURN       TYPE BAPIRET1,
+        L_COUNT        TYPE SYST_FMKEY.
+
+  IF I_DELIVERY IS NOT INITIAL.
+    T_BILLING-REF_DOC = I_DELIVERY.
+    T_BILLING-ORDBILLTYP = 'F2' .  "Billing Doc Type
+    T_BILLING-REF_DOC_CA = 'J'.    "Category of Preceeding SD Doc
+    APPEND T_BILLING.
+
+    CALL FUNCTION 'BAPI_BILLINGDOC_CREATEMULTIPLE'
+      TABLES
+        BILLINGDATAIN = T_BILLING
+        RETURN        = T_RETURN
+        ERRORS        = T_ERROR
+        SUCCESS       = T_SUCCESS.
+
+    IF T_SUCCESS IS NOT INITIAL AND T_RETURN-TYPE = 'S' .
+      DATA : WA_SUCC LIKE LINE OF T_SUCCESS.
+      READ TABLE T_SUCCESS INTO WA_SUCC INDEX 1.
+      E_BILLDOC = WA_SUCC-BILL_DOC.
+
+    ELSEIF T_RETURN-TYPE NE 'S'.
+      CALL FUNCTION 'FORMAT_MESSAGE'
+        EXPORTING
+          ID   = T_RETURN-ID
+          LANG = '-D'
+          NO   = T_RETURN-NUMBER
+          V1   = T_RETURN-MESSAGE_V1
+          V2   = T_RETURN-MESSAGE_V2
+          V3   = T_RETURN-MESSAGE_V3
+          V4   = T_RETURN-MESSAGE_V4
+        IMPORTING
+          MSG  = E_MSG.
+*       IF SY-SUBRC <> 0.
+** Implement suitable error handling here
+*       ENDIF.
+    ENDIF.
+
+    IF E_BILLDOC IS NOT INITIAL.
+      CALL FUNCTION 'BAPI_TRANSACTION_COMMIT'
+        EXPORTING
+          WAIT = 'X'.
+      SHIFT E_BILLDOC LEFT DELETING LEADING '0'.
+      CONCATENATE 'Billing Document(송장문서)' E_BILLDOC 'has been created(생성성공) !' INTO E_MSG
+      SEPARATED BY SPACE.
+    ELSE.
+      LOOP AT T_RETURN INTO W_RETURN.
+        L_COUNT = L_COUNT + 1.
+        CONDENSE L_COUNT.
+        CONCATENATE E_ERROR L_COUNT '.' W_RETURN-MESSAGE ';' INTO E_ERROR.
+      ENDLOOP.
+    ENDIF.
+
+  ELSE.
+    CONCATENATE E_MSG 'Please Enter Delivery Document Number' INTO E_MSG SEPARATED BY SPACE.
+  ENDIF.
+
+
+
+
+
+ENDFUNCTION.

@@ -1,0 +1,103 @@
+FUNCTION ZCA_CREDITSHOW_GETLIST.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(I_CUSTOMER) TYPE  KUNNR OPTIONAL
+*"     VALUE(I_CTLAREA) TYPE  KKBER OPTIONAL
+*"     VALUE(I_COMP_VALUE) TYPE  NETWR_AK OPTIONAL
+*"     VALUE(I_STATUS) TYPE  CHAR1 OPTIONAL
+*"  EXPORTING
+*"     VALUE(ET_CREDITSHOW) TYPE  ZCA_CREDITSHOW_TT
+*"----------------------------------------------------------------------
+
+
+*"Status
+*"B: Blocked // A: Approved
+
+IF I_CUSTOMER IS INITIAL.
+  I_CUSTOMER = '%'.
+ELSEIF STRLEN( I_CUSTOMER ) < 10.
+  CONCATENATE I_CUSTOMER '%' INTO I_CUSTOMER.
+  TRANSLATE I_CUSTOMER TO UPPER CASE.
+ENDIF.
+
+IF I_CTLAREA IS INITIAL.
+  I_CTLAREA = '%'.
+ELSEIF STRLEN( I_CTLAREA ) < 4.
+  CONCATENATE I_CTLAREA '%' INTO I_CTLAREA.
+  TRANSLATE I_CTLAREA TO UPPER CASE.
+ENDIF.
+
+IF I_STATUS IS INITIAL.
+  I_STATUS = '%'.
+ELSE.
+  TRANSLATE I_STATUS TO UPPER CASE.
+ENDIF.
+
+SELECT
+        A~MANDT         AS MANDT
+        A~CTLPC         AS RISK
+        A~KUNNR         AS CUSTOMER
+        A~KKBER         AS CTL_AREA
+        A~KLIMK         AS SEGMENT_LIMIT
+        A~SKFOR         AS BALANCE
+        B~WAERS         AS CURRENCY
+        A~CASHD         AS LAST_DATE
+        A~CASHA         AS LAST_VALUE
+        A~CASHC         AS LAST_CURR
+
+        FROM KNKK       AS A
+        INNER JOIN T014 AS B
+                                ON A~KKBER  = B~KKBER
+        INTO CORRESPONDING FIELDS OF TABLE ET_CREDITSHOW
+        WHERE A~KUNNR LIKE I_CUSTOMER
+          AND A~KKBER LIKE I_CTLAREA
+        .
+
+
+IF ET_CREDITSHOW IS NOT INITIAL.
+    DATA: WA_CREDITSHOW  TYPE ZCA_CREDITSHOW_WA,
+          L_CREDIT_SGMNT TYPE UKM_CREDIT_SGMNT,
+          L_CREDIT_LIMIT TYPE UKM_CREDIT_LIMIT.
+
+    LOOP AT ET_CREDITSHOW INTO WA_CREDITSHOW.
+
+        SELECT SINGLE CREDIT_SGMNT FROM UKM_KKBER2SGM INTO  L_CREDIT_SGMNT
+                                                      WHERE KKBER = WA_CREDITSHOW-CTL_AREA.
+        SELECT SINGLE CREDIT_LIMIT FROM UKMBP_CMS_SGM INTO  L_CREDIT_LIMIT
+                                                      WHERE PARTNER      = WA_CREDITSHOW-CUSTOMER
+                                                        AND CREDIT_SGMNT = L_CREDIT_SGMNT.
+
+
+        WA_CREDITSHOW-SEGMENT = L_CREDIT_SGMNT.
+        WA_CREDITSHOW-CUSTOMER_LIMIT = L_CREDIT_LIMIT.
+
+        IF ( WA_CREDITSHOW-BALANCE + I_COMP_VALUE ) > WA_CREDITSHOW-CUSTOMER_LIMIT OR
+           ( WA_CREDITSHOW-BALANCE + I_COMP_VALUE ) > WA_CREDITSHOW-SEGMENT_LIMIT.
+              IF I_STATUS IS NOT INITIAL AND ( I_STATUS = 'a' OR I_STATUS ='A').
+                DELETE ET_CREDITSHOW  WHERE CUSTOMER  = WA_CREDITSHOW-CUSTOMER
+                                      AND   CTL_AREA  = WA_CREDITSHOW-CTL_AREA
+                                      .
+                CONTINUE.
+              ENDIF.
+              WA_CREDITSHOW-STATUS = 'B'.
+        ELSE.
+              IF I_STATUS IS NOT INITIAL AND ( I_STATUS = 'B' OR I_STATUS ='b').
+                DELETE ET_CREDITSHOW  WHERE CUSTOMER  = WA_CREDITSHOW-CUSTOMER
+                                      AND   CTL_AREA  = WA_CREDITSHOW-CTL_AREA
+                                      .
+                CONTINUE.
+              ENDIF.
+            WA_CREDITSHOW-STATUS = 'A'.
+        ENDIF.
+          MODIFY ET_CREDITSHOW FROM WA_CREDITSHOW
+                       TRANSPORTING CUSTOMER_LIMIT SEGMENT STATUS
+                       WHERE CUSTOMER  = WA_CREDITSHOW-CUSTOMER
+                       AND   CTL_AREA  = WA_CREDITSHOW-CTL_AREA
+                       .
+    ENDLOOP.
+ENDIF.
+
+
+
+ENDFUNCTION.
